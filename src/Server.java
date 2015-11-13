@@ -10,7 +10,7 @@ public class Server {
 	// a unique ID for each connection
 	private static int uniqueId;
 	// an ArrayList to keep the list of the Client
-	private ArrayList<ClientThread> al;
+	public ArrayList<ClientThread> al;
 	// if I am in a GUI
 	private ServerGUI sg;
 	// to display time
@@ -146,7 +146,7 @@ public class Server {
 	/*
 	 *  to broadcast a message to all Clients
 	 */
-	private synchronized void broadcast(String message) {
+	public synchronized void broadcast(String message) {
 		// add HH:mm:ss and \n to the message
 		String time = sdf.format(new Date());
 		String messageLf = time + " " + message + "\n";
@@ -165,6 +165,12 @@ public class Server {
 				al.remove(i);
 				display("Disconnected Client " + ct.username + " removed from list.");
 			}
+		}
+	}
+	public void resetGame(){
+		for(int i = al.size(); --i >= 0;) {
+			ClientThread tc = al.get(i);
+			tc.writeObj("resetgame");
 		}
 	}
 	private void ackReady(){

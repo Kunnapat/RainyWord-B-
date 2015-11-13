@@ -1,6 +1,10 @@
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.sql.Date;
 
 
@@ -185,12 +189,19 @@ public class ClientGUI extends JFrame implements ActionListener {
 	void removeWord(String str) {
 		((GamePanel) centerPanel).removeWord(str, false );
 	}
+	void resetGame(){
+		System.out.println("reset game method called");
+		dispose();
+		timer.stop();
+		client.sendMessage(new Messager(Messager.LOGOUT, ""));
+		new ClientGUI("localhost", 1600);
+	}
 	// called by the GUI is the connection failed
 	// we reset our buttons, label, textfield
 	void connectionFailed() {
 		login.setEnabled(true);
 		logout.setEnabled(false);
-		whoIsIn.setEnabled(false);
+		//whoIsIn.setEnabled(false);
 		tf.setText("Anonymous");
 		// reset port number and host name as a construction time
 		tfPort.setText("" + defaultPort);
@@ -344,6 +355,18 @@ public class ClientGUI extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(null,"Welcome " + username);
 		}
 
+	}
+	
+	public static void playSound(String s) {
+	    try {
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(s));
+	        Clip clip = AudioSystem.getClip();
+	        clip.open(audioInputStream);
+	        clip.start();
+	    } catch(Exception ex) {
+	        System.out.println("Error with playing sound.");
+	        ex.printStackTrace();
+	    }
 	}
 
 	// to start the whole thing the server

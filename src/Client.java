@@ -254,6 +254,9 @@ public class Client  {
 								cg.addOpponentScore();
 							}
 						}
+						if(msg.equals("resetgame")){
+							cg.resetGame();
+						}
 						cg.append(msg);
 					}
 				}

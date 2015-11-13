@@ -1,5 +1,6 @@
 import javax.swing.*;
 
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -10,7 +11,7 @@ public class ServerGUI extends JFrame implements ActionListener, WindowListener 
 	
 	private static final long serialVersionUID = 1L;
 	// the stop and start buttons
-	private JButton stopStart;
+	private JButton stopStart, resetButton;
 	// JTextArea for the chat room and the events
 	private JTextArea chat, event;
 	// The port number
@@ -35,8 +36,18 @@ public class ServerGUI extends JFrame implements ActionListener, WindowListener 
 		// to stop or start the server, we start with "Start"
 		stopStart = new JButton("Start");
 		stopStart.addActionListener(this);
+		resetButton = new JButton("Reset");
+		resetButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				server.resetGame();
+			}
+			
+		});
 		numberOfClient = new JLabel("#c: " + numberOfC);
 		north.add(stopStart);
+		north.add(resetButton);
 		north.add(numberOfClient);
 		add(north, BorderLayout.NORTH);
 		
