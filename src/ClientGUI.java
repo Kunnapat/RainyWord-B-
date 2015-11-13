@@ -41,7 +41,7 @@ public class ClientGUI extends JFrame implements ActionListener {
 	
 	LinkedList wordList, welcomeList;
 	
-	final static int WINDOWWH = 600, gameDuration = 10000;
+	final static int WINDOWWH = 600, gameDuration = 30000;
 	
 	ActionListener al;
 	
@@ -371,7 +371,7 @@ public class ClientGUI extends JFrame implements ActionListener {
 
 	// to start the whole thing the server
 	public static void main(String[] args) {
-		new ClientGUI("localhost", 1600);
+		new ClientGUI("172.20.10.2", 1600);
 	}
 	
 	class GamePanel extends JPanel{
